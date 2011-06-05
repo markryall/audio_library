@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+
+$: << File.dirname(__FILE__)+'/../lib'
+require 'audio_library'
+
+path = ARGV.shift
+tags = AudioLibrary.parse path
+
+tags.dump
+
+puts %w{title album artist time date}.map {|field| tags.send field }.join('|')

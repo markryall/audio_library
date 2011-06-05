@@ -1,0 +1,27 @@
+=== audio library
+
+This is a ruby gem to rapidly extract the id3 tags from a large music collection.
+
+The eventual goal is to used this to create a tool to clean up tags and to use instead of the songbird database in the songbirdsh gem.
+
+== Development prerequisites
+
+Various tools seem to be able to get the tags to varying extents.  Change the class in audio_library.rb to switch to a different implementation.
+
+= id3lib
+
+Although this project has been discontinued, it seems to be the fastest way to extract tags.  Most files do not contain a duration unfortunately.  The other tools try to estimate the duration based on the file size and bit rate. 
+
+  brew install id3lib
+
+= ffmmpeg
+
+  brew install ffmpeg
+
+= exiftool
+
+  brew install exiftool
+  
+== Future plans
+
+* perhaps take a look at some other tools - id3tool, libid3tag, jaudiotagger (with jruby)
