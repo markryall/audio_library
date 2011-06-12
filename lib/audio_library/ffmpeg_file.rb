@@ -3,9 +3,11 @@ require 'audio_library/executor'
 class AudioLibrary::FfmpegFile
   include AudioLibrary::Executor
 
-  attr_reader :title, :album, :artist, :time, :date
+  attr_reader :path, :timestamp, :title, :album, :artist, :time, :date, :track
 
   def initialize path
+    @path = path.to_s
+    @timestamp = path.timestamp
     clean_path path
     content = `ffmpeg -i \"#{path}\" 2>&1`
     state = :draining
@@ -29,7 +31,8 @@ class AudioLibrary::FfmpegFile
     @album = @meta['TALB'] || @meta ['album']
     @artist = @meta['TPE1'] || @meta['TPE2'] || @meta['artist']
     @time = to_duration @meta['Duration']
-    @date = @meta['TDRC'] || @meta['date']
+    @date = @meta['TDRC'] || @meta['TYER'] || @meta['date']
+    @track = @meta['TRCK']
   end
 
   def method_missing method
