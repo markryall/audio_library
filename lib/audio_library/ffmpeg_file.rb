@@ -3,13 +3,9 @@ require 'audio_library/executor'
 class AudioLibrary::FfmpegFile
   include AudioLibrary::Executor
 
-  attr_reader :path, :timestamp, :title, :album, :artist, :time, :date, :track
-
   def initialize path
-    @path = path.to_s
-    @timestamp = path.timestamp
-    cleaned_path = clean_path @path
-    content = `ffmpeg -i \"#{cleaned_path}\" 2>&1`
+    extract_file_attributes path
+    content = `ffmpeg -i \"#{clean_path @path}\" 2>&1`
     state = :draining
     @meta = {}
     content.each_line do |line|
@@ -40,7 +36,7 @@ class AudioLibrary::FfmpegFile
   end
 private
   def to_duration s
-    return 0 unless s
+    return nil unless s
     first, *rest = s.split ','
     hours, minutes, seconds = first.split ':'
     seconds.to_i + (minutes.to_i * 60) + (hours.to_i * 60 * 60)

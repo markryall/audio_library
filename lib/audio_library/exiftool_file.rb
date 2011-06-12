@@ -3,11 +3,9 @@ require 'audio_library/executor'
 class AudioLibrary::ExiftoolFile
   include AudioLibrary::Executor
 
-  attr_reader :title, :album, :artist, :time, :date
-
   def initialize path
-    clean_path path
-    content = `exiftool \"#{path}\"`
+    extract_file_attributes path
+    content = `exiftool \"#{clean_path @path}\"`
     @meta = {}
     content.each_line do |line|
       l = line.chomp
@@ -17,6 +15,7 @@ class AudioLibrary::ExiftoolFile
       rescue ArgumentError => e
       end
     end
+    @track = @meta['Track']
     @title = @meta['Title']
     @album = @meta['Album']
     @artist = @meta['Artist']
@@ -29,7 +28,7 @@ class AudioLibrary::ExiftoolFile
   end
 private
   def to_duration s
-    return 0 unless s
+    return nil unless s
     first, *rest = s.split ' '
     minutes, seconds = first.split ':'
     seconds.to_i + (minutes.to_i * 60)

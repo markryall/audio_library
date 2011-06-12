@@ -4,16 +4,24 @@ require 'audio_library/exiftool_file'
 
 module AudioLibrary
   module Parser
-    FIELDS = %w{path timestamp album track title artist time date}
-
     def self.parse path
       parse_composite path
     end
 
     def self.parse_composite path
-      track = parse_id3 path
-      missing = FIELDS.select {|field| !track.send field }
-      track
+      track1 = parse_id3 path
+      show_missing track1
+      track2 = parse_ffmpeg path
+      show_missing track2
+      track3 = parse_exiftool path
+      show_missing track3
+      gets
+      track1
+    end
+
+    def self.show_missing track
+      puts track.to_a
+      puts AudioLibrary::Executor::FIELDS.select {|field| !track.send field }.inspect
     end
 
     def self.parse_id3 path

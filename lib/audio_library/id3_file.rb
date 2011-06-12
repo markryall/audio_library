@@ -1,28 +1,26 @@
-require 'rubygems'
+require 'audio_library/executor'
 require 'id3lib'
 require 'rchardet19'
 require 'pp'
 
 class AudioLibrary::Id3File
-  attr_reader :path, :timestamp
+  include AudioLibrary::Executor
 
   def initialize path
-    @path = path.to_s
-    @timestamp = path.timestamp
-    @tags = ID3Lib::Tag.new @path
+    extract_file_attributes path
+    tags = ID3Lib::Tag.new @path
+    @title = reencode tags.title
+    @album = reencode tags.album
+    @artist = reencode (tags.band || tags.performer)
+    @time = tags.time.to_i if tags.time
+    @date = (tags.date || tags.year)
+    @track = tags.track
   end
 
-  def method_missing method
-    value = @tags.send method
-    return nil unless value
+  def reencode value
+    retur nil unless value
     cd = CharDet.detect value
     value.force_encoding cd[:encoding]
     value.encode 'UTF-8'
-  end
-
-  def dump
-    @tags.each do |f|
-      pp f
-    end
   end
 end
