@@ -1,6 +1,8 @@
 require 'csv'
 require 'ostruct'
 
+module AudioLibrary; end
+
 class AudioLibrary::PersistedTraverser
   include Enumerable
 

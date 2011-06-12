@@ -1,28 +1,21 @@
 #!/usr/bin/env ruby
 
 $: << File.dirname(__FILE__)+'/../lib'
-require 'audio_library'
-require 'csv'
 
-music_path = ARGV.shift
-csv_path = ARGV.shift
+require 'audio_library/persisted_traverser'
 
 start = Time.now
 count = 0
-traverser = AudioLibrary::AudioTraverser.new music_path
+traverser = AudioLibrary::PersistedTraverser.new ARGV.shift
 
 def show_progress start, count
   elapsed = Time.now-start
   $stderr.puts "Processed #{count} audio files in #{elapsed} seconds (#{elapsed/count} per file)"
 end
 
-CSV.open(csv_path, 'wb') do |csv|
-  while traverser.next
-    tag_file = AudioLibrary.parse traverser.current
-    csv << [traverser.current, traverser.timestamp] + %w{title album artist time date}.map { |field| tag_file.send field }
-    count += 1
-    show_progress start, count if count % 1000 == 0
-  end
+traverser.each do |audio_file|
+  count += 1
+  show_progress start, count if count % 1000 == 0
 end
 
 show_progress start, count
