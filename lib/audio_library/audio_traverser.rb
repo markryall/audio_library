@@ -1,4 +1,5 @@
 require 'pathname'
+require 'audio_library/file'
 
 class AudioLibrary::AudioTraverser
   attr_reader :current

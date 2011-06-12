@@ -24,7 +24,7 @@ class AudioLibrary::PersistedTraverser
   end
 
   def append track
-    CSV.open(@store_path, 'ab') do |csv|
+    CSV.open(@path, 'ab') do |csv|
       csv << FIELDS.map { |field| track.send field }
     end
   end

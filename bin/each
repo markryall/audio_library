@@ -2,11 +2,11 @@
 
 $: << File.dirname(__FILE__)+'/../lib'
 
-require 'audio_library/persisted_traverser'
+require 'audio_library/persistant_traverser'
 
 start = Time.now
 count = 0
-traverser = AudioLibrary::PersistedTraverser.new ARGV.shift
+traverser = AudioLibrary::PersistantTraverser.new ARGV.shift, ARGV.shift
 
 def show_progress start, count
   elapsed = Time.now-start

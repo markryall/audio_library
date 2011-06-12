@@ -8,8 +8,8 @@ class AudioLibrary::FfmpegFile
   def initialize path
     @path = path.to_s
     @timestamp = path.timestamp
-    clean_path path
-    content = `ffmpeg -i \"#{path}\" 2>&1`
+    cleaned_path = clean_path @path
+    content = `ffmpeg -i \"#{cleaned_path}\" 2>&1`
     state = :draining
     @meta = {}
     content.each_line do |line|
