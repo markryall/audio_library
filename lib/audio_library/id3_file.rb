@@ -4,8 +4,12 @@ require 'rchardet19'
 require 'pp'
 
 class AudioLibrary::Id3File
+  attr_reader :path, :timestamp
+
   def initialize path
-    @tags = ID3Lib::Tag.new path
+    @path = path.to_s
+    @timestamp = path.timestamp
+    @tags = ID3Lib::Tag.new @path
   end
 
   def method_missing method
