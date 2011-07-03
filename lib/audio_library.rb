@@ -1,0 +1,3 @@
+module AudioLibrary
+  VERSION = "0.0.1"
+end

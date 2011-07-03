@@ -5,7 +5,7 @@ require 'audio_library/exiftool_file'
 module AudioLibrary
   module Parser
     def self.parse path
-      parse_composite path
+      parse_ffmpeg path
     end
 
     def self.parse_composite path
@@ -20,8 +20,11 @@ module AudioLibrary
     end
 
     def self.show_missing track
-      puts track.to_a
-      puts AudioLibrary::Executor::FIELDS.select {|field| !track.send field }.inspect
+      missing = AudioLibrary::Executor::FIELDS.select {|field| !track.send field }
+      unless missing.empty?
+        puts track.to_a
+        gets
+      end
     end
 
     def self.parse_id3 path

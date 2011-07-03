@@ -1,3 +1,8 @@
+PATH
+  remote: .
+  specs:
+    audio_library (0.0.1)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -8,5 +13,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  audio_library!
   id3lib-ruby
   rchardet19
