@@ -6,7 +6,7 @@ require 'audio_library/persisted_traverser'
 require 'audio_library/executor'
 
 unless ARGV.count == 1
-  put "usage: #{__FILE__} <pathtocsv>"
+  puts "usage: #{__FILE__} <pathtocsv>"
   exit
 end
 

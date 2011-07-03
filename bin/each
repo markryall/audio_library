@@ -3,6 +3,12 @@
 $: << File.dirname(__FILE__)+'/../lib'
 
 require 'audio_library/persistant_traverser'
+require 'splat'
+
+unless ARGV.count == 2
+  puts "usage: #{__FILE__} <pathtomusic> <pathtocsv>"
+  exit
+end
 
 start = Time.now
 count = 0
@@ -19,3 +25,5 @@ traverser.each do |audio_file|
 end
 
 show_progress start, count
+
+(File.dirname(__FILE__)+'/../media/applause.mp3').to_player
