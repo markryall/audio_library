@@ -23,12 +23,19 @@ class AudioLibrary::FfmpegFile
           end
       end
     end
+
     @title = @meta['TIT2'] || @meta['title']
     @album = @meta['TALB'] || @meta ['album']
     @artist = @meta['TPE1'] || @meta['TPE2'] || @meta['artist']
+    @albumartist = @meta['TSO2'] || @meta['album_artist']
     @time = to_duration @meta['Duration']
     @date = @meta['TDRC'] || @meta['TYER'] || @meta['date']
-    @track = @meta['TRCK']
+    @track = @meta['TRCK'] || @meta['track']
+    @puid = @meta['MusicIP PUID']
+    @mbartistid = @meta['MusicBrainz Artist Id']
+    @mbalbumid = @meta['MusicBrainz Album Id']
+    @mbalbumartistid = @meta['MusicBrainz Album Artist Id']
+    @asin = @meta['ASIN']
   end
 
   def method_missing method

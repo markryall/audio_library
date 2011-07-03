@@ -17,4 +17,8 @@ Gem::Specification.new do |s|
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
+
+  s.add_dependency 'splat', '~>0'
+  s.add_dependency 'rchardet19', '~>1'
+  s.add_dependency 'id3lib-ruby', '~>0'
 end

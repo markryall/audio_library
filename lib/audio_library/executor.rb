@@ -1,5 +1,5 @@
 module AudioLibrary::Executor
-  FIELDS = %w{path timestamp album track title artist time date}
+  FIELDS = %w{path timestamp album track title artist time date albumartist puid mbartistid mbalbumid mbalbumartistid asin}
 
   attr_reader *FIELDS.map {|field| field.to_sym }
 
