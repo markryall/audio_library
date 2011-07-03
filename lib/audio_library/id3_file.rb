@@ -18,7 +18,7 @@ class AudioLibrary::Id3File
   end
 
   def reencode value
-    retur nil unless value
+    return nil unless value
     cd = CharDet.detect value
     value.force_encoding cd[:encoding]
     value.encode 'UTF-8'

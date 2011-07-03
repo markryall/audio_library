@@ -5,37 +5,31 @@ require 'audio_library/exiftool_file'
 module AudioLibrary
   module Parser
     def self.parse path
-      parse_ffmpeg path
+      track = parse_ffmpeg path
+      debug track.to_a.inspect
+      track = parse_exiftool path if track.no_tag_fields?
+      debug track.to_a.inspect
+      track = parse_id3 path if track.no_tag_fields?
+      debug track.to_a.inspect
+      track
     end
 
-    def self.parse_composite path
-      track1 = parse_id3 path
-      show_missing track1
-      track2 = parse_ffmpeg path
-      show_missing track2
-      track3 = parse_exiftool path
-      show_missing track3
-      gets
-      track1
-    end
-
-    def self.show_missing track
-      missing = AudioLibrary::Executor::FIELDS.select {|field| !track.send field }
-      unless missing.empty?
-        puts track.to_a
-        gets
-      end
+    def self.debug message
+      puts message if ENV['DEBUG']
     end
 
     def self.parse_id3 path
+      debug "Parsing #{path} with Id3"
       AudioLibrary::Id3File.new path
     end
 
     def self.parse_ffmpeg path
+      debug "Parsing #{path} with Ffmpeg"
       AudioLibrary::FfmpegFile.new path
     end
 
     def self.parse_exiftool path
+      debug "Parsing #{path} with Exiftool"
       AudioLibrary::ExiftoolFile.new path
     end
   end

@@ -5,8 +5,8 @@ module AudioLibrary::Tagged
 
   attr_reader *FIELDS.map {|field| field.to_sym }
 
-  def no_tag_fields? track
-    AudioLibrary::Executor::TAG_FIELDS.select {|field| track.send field }.empty?
+  def no_tag_fields?
+    TAG_FIELDS.select {|field| send field }.empty?
   end
 
   def to_a
