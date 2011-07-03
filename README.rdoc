@@ -10,7 +10,7 @@ Various tools seem to be able to get the tags to varying extents.  Change the cl
 
 = id3lib
 
-Although this project has been discontinued, it seems to be the fastest way to extract tags.  Most files do not contain a duration unfortunately.  The other tools try to estimate the duration based on the file size and bit rate. 
+Although this project has been discontinued, it seems to be the fastest way to extract tags.  Most files generally seem to not contain a duration unfortunately.  The other tools try to estimate the duration based on the file size and bit rate.
 
   brew install id3lib
 
@@ -25,3 +25,17 @@ Although this project has been discontinued, it seems to be the fastest way to e
 == Future plans
 
 * perhaps take a look at some other tools - id3tool, libid3tag, jaudiotagger (with jruby)
+* the following issue (processing a single file with ffmpeg):
+
+Processed 16000 audio files in 1033.450709 seconds (0.0645906693125 per file)
+sh: -c: line 0: unexpected EOF while looking for matching ``'
+sh: -c: line 1: syntax error: unexpected end of file
+Processed 17000 audio files in 1092.829656 seconds (0.06428409741176472 per file)
+
+* generate report giving counts of missing tag information
+* create class that implements required methods for songbirdsh
+* rename songbirdsh
+* use a ~/.something file to store preferences (ie. which extraction tool to use, songbird library provider, etc.)
+* add cardigan cards instead of this thing
+* store library data somewhere in ~/.
+* add ability to store multiple libraries (which may or may not be available)

@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+
+$: << File.dirname(__FILE__)+'/../lib'
+
+require 'audio_library/executor'
+require 'audio_library/persisted_traverser'
+
+unless ARGV.count == 1
+  put "usage: #{__FILE__} <pathtocsv>"
+  exit
+end
+
+count = 0
+missing = {}
+AudioLibrary::Executor::FIELDS.each {|field| missing[field] = 0 }
+
+AudioLibrary::PersistedTraverser.new(ARGV.shift).each do |track|
+  count += 1
+  AudioLibrary::Executor::FIELDS.each {|field| missing[] += 1 unless track.send(field) }
+end
+
+AudioLibrary::Executor::FIELDS.each {|field| "#{missing[field]} are missing #{field}"}
+puts "#{count} total files"
