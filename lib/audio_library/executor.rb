@@ -19,7 +19,7 @@ module AudioLibrary::Executor
   end
 
   def clean_path path
-    path.escape(" ").escape2("'").escape("!").escape2("`").escape("(").escape(")").escape2("&")
+    path.escape(" ").escape2("'").escape("!").escape2("`").escape("(").escape(")").escape2("&").escape2(";")
   end
 
   def execute command
