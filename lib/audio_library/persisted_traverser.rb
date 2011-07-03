@@ -14,7 +14,7 @@ class AudioLibrary::PersistedTraverser
     CSV.foreach(@path) do |row|
       tuples = AudioLibrary::Executor::FIELDS.map {|field| [field, row.shift]}.flatten
       o = OpenStruct.new Hash[*tuples]
-      o.extend AudioLibrary::Executor
+      o.extend AudioLibrary::Tagged
       yield o
     end if File.exist? @path
   end

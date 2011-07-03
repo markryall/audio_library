@@ -1,0 +1,15 @@
+module AudioLibrary::Tagged
+  FILE_FIELDS = %w{path timestamp}
+  TAG_FIELDS = %w{album track title artist time date albumartist puid mbartistid mbalbumid mbalbumartistid asin}
+  FIELDS = FILE_FIELDS + TAG_FIELDS
+
+  attr_reader *FIELDS.map {|field| field.to_sym }
+
+  def no_tag_fields? track
+    AudioLibrary::Executor::TAG_FIELDS.select {|field| track.send field }.empty?
+  end
+
+  def to_a
+    FIELDS.map { |field| send field }
+  end
+end
