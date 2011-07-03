@@ -4,7 +4,7 @@ class AudioLibrary::File
   end
 
   def timestamp
-    @path.mtime.to_i
+    @path.mtime.to_i.to_s
   end
 
   def to_s
