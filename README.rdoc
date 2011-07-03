@@ -24,10 +24,9 @@ Although this project has been discontinued, it seems to be the fastest way to e
   
 == Future plans
 
-* generate report giving counts of missing tag information
+* change rescanner to rescan tags when any are missing from csv
 * create class that implements required methods for songbirdsh
 * scan entire directory hierarchy first and then provide time estimates when the process will be finished
-* make a sound when processing has finished
 * perhaps take a look at some other tools - id3tool, libid3tag, jaudiotagger (with jruby)
 * the following issue (processing a single file with ffmpeg):
 
