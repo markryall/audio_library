@@ -24,6 +24,10 @@ Although this project has been discontinued, it seems to be the fastest way to e
   
 == Future plans
 
+* generate report giving counts of missing tag information
+* create class that implements required methods for songbirdsh
+* scan entire directory hierarchy first and then provide time estimates when the process will be finished
+* make a sound when processing has finished
 * perhaps take a look at some other tools - id3tool, libid3tag, jaudiotagger (with jruby)
 * the following issue (processing a single file with ffmpeg):
 
@@ -32,8 +36,6 @@ sh: -c: line 0: unexpected EOF while looking for matching ``'
 sh: -c: line 1: syntax error: unexpected end of file
 Processed 17000 audio files in 1092.829656 seconds (0.06428409741176472 per file)
 
-* generate report giving counts of missing tag information
-* create class that implements required methods for songbirdsh
 * rename songbirdsh
 * use a ~/.something file to store preferences (ie. which extraction tool to use, songbird library provider, etc.)
 * add cardigan cards instead of this thing
