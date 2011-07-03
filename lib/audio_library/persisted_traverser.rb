@@ -1,4 +1,3 @@
-require 'csv'
 require 'ostruct'
 
 module AudioLibrary; end
@@ -11,21 +10,24 @@ class AudioLibrary::PersistedTraverser
   end
 
   def each
-    CSV.foreach(@path) do |row|
-      tuples = AudioLibrary::Executor::FIELDS.map {|field| [field, row.shift]}.flatten
-      o = OpenStruct.new Hash[*tuples]
-      o.extend AudioLibrary::Tagged
-      yield o
+    File.open @path  do |file|
+      while line = file.gets
+        row = line.chomp.split '<->'
+        tuples = AudioLibrary::Executor::FIELDS.map {|field| [field, row.shift]}.flatten
+        o = OpenStruct.new Hash[*tuples]
+        o.extend AudioLibrary::Tagged
+        yield o
+      end
     end if File.exist? @path
   end
 
   def clear
-    CSV.open @path, 'wb'
+    File.open @path, 'w'
   end
 
   def append track
-    CSV.open(@path, 'ab') do |csv|
-      csv << track.to_a
+    File.open(@path, 'a') do |file|
+      file.puts track.to_a.join('<->')
     end
   end
 end
