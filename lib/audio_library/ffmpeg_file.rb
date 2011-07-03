@@ -5,7 +5,7 @@ class AudioLibrary::FfmpegFile
 
   def initialize path
     extract_file_attributes path
-    content = `ffmpeg -i \"#{clean_path @path}\" 2>&1`
+    content = execute "ffmpeg -i #{clean_path @path}"
     state = :draining
     @meta = {}
     content.each_line do |line|

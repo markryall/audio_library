@@ -5,7 +5,7 @@ class AudioLibrary::ExiftoolFile
 
   def initialize path
     extract_file_attributes path
-    content = `exiftool \"#{clean_path @path}\"`
+    content = execute "exiftool #{clean_path @path}"
     @meta = {}
     content.each_line do |line|
       l = line.chomp

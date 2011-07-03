@@ -1,5 +1,11 @@
 require 'audio_library/tagged'
 
+class String
+  def escape char
+    split(char).join("\\#{char}")
+  end
+end
+
 module AudioLibrary::Executor
   include AudioLibrary::Tagged
 
@@ -9,6 +15,15 @@ module AudioLibrary::Executor
   end
 
   def clean_path path
-    path.gsub("'", "\\'").gsub("!", "\\!").gsub("`", "\\`")
+    path.escape(" ").escape("'").escape("!").escape("`").escape("(").escape(")").escape("&")
+  end
+
+  def execute command
+    debug command
+    `#{command} 2>&1`
+  end
+
+  def debug message
+    puts message if ENV['DEBUG']
   end
 end
