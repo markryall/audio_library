@@ -2,6 +2,10 @@ require 'audio_library/tagged'
 
 class String
   def escape char
+    gsub(char, "\\#{char}")
+  end
+
+  def escape2 char
     split(char).join("\\#{char}")
   end
 end
@@ -15,7 +19,7 @@ module AudioLibrary::Executor
   end
 
   def clean_path path
-    path.escape(" ").escape("'").escape("!").escape("`").escape("(").escape(")").escape("&")
+    path.escape(" ").escape2("'").escape("!").escape2("`").escape("(").escape(")").escape2("&")
   end
 
   def execute command
